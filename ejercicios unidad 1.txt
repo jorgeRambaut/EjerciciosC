@@ -1,0 +1,183 @@
+//Ejercicio 1: Realizar un programa que permita hacer nulos (cargarles valor 0)
+//los elementos de un vector Q de enteros, con n componentes (donde n es una
+//constante que vale 10).
+
+#include <stdio.h>
+
+int main()
+{
+    int n = 10;
+    int Q [n];
+    int i ;
+    
+    for (i= 0;i<n ; i ++)
+    { Q[i] = 0;
+    printf("%d\t",Q[i]);
+    }
+    return 0;
+}
+
+----------
+//Ejercicio 2: Realizar un programa que permita obtener e imprimir el resultado
+//de la suma de los elementos de un vector Z de longitud k, donde los elementos
+//del vector son reales (considerar k=5).
+#include <stdio.h>
+
+int main()
+{
+    int k = 5;
+    float z [k];
+    float suma[k];
+    int i ;
+    
+    for (i= 0;i<k ; i++)
+    { 
+      
+      suma[i] +=z [i];
+      printf("%f\t",suma[i]);
+    }
+    
+    return 0;
+}
+
+-------------------------------------
+//Ejercicio 3: Realizar un programa que permita imprimir las componentes de un
+//vector A de longitud g, cuyos elementos son caracteres. La impresión deberá
+//indicar el índice del vector y el valor de la componente. Los índices son enteros
+//y g=8.
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char texto[]="Longitud";
+    int longitud=strlen(texto);
+    int indice;
+    
+    for (indice=0;indice<longitud;indice++)
+    {
+        
+        printf("Indice %d \t Valor %c\n",indice,texto[indice]);
+    }
+    
+    return 0;
+}
+
+
+//Ejercicio 4: Realizar un programa que permita obtener el producto de dos
+//vectores A y B componente a componente, guardando el resultado en un nuevo 
+//vector C. Los vectores tienen longitud 6, y los índices son enteros. Los
+//elementos del vector también son enteros. Imprimir el resultado.
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+ int A []={1,2,3,4,5,6};
+ int B []={7,8,9,10,11,12};
+ int C [6];
+ int i;
+ printf("Vector Resultado \n");
+ for (i=0;i<6;i++)
+ {
+     C[i]=(A[i]*B[i]);
+     printf(" %d\t",C[i]);
+     
+ }
+    
+    return 0;
+}
+-------------------------------------------------
+//Ejercicio 5: Realizar un programa que permita asignar la identidad a una
+//matriz R de dimensión mxm (considerar m=4). Los índices y las componentes
+//son enteros. La matriz identidad es la que tiene valor 1 en la diagonal principal
+//y 0 en el resto.
+//1 0 0 0
+//0 1 0 0
+//0 0 1 0
+//0 0 0 1
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+ int q =4;
+ int r=4;
+ int R [q][r];
+ int fila;
+ int columna;
+ 
+ printf("Matriz Identidad \n");
+ 
+ for (fila=0;fila<q;fila++)
+ {
+     for (columna=0;columna<r;columna++)
+     {
+      R [fila][columna]= (fila==columna);//trate de ahorrar lineas de codigo pero tengo que comentar asi que no se si es tan eficiente, si son == da como resultado 1 
+      printf("%d \t",R [fila][columna]); // de lo contrario da resultado 0 
+      
+     } 
+ printf("\n"); //lo que tarde en dar con que el printf iba acá para que la matriz quedara como una matriz y no todo uno abajo del otro o todos seguidos !!!! 
+ }
+    return 0;
+}
+---------------------------------------
+//Ejercicio 6: Realizar un programa que permita obtener la suma de dos
+//matrices X y J de dimensión axb (a=3 y b=4). Los elementos de la matriz son
+//reales. El resultado debe ser impreso. Realizar la suma componente a
+//componente.
+//Nota: Los valores de las matrices y los vectores deben ser cargados desde
+//teclado y siempre impresos sobre la pantalla.
+
+#include <stdio.h>
+
+int main()
+{
+ 
+ int a =3;
+ int b =4;
+ int i,j;
+ float valoringresado;
+ float X [a][b];
+ float J [a][b];
+ float resultado [a][b];
+ 
+ for (i=0;i<a;i++)
+ {
+    for (j=0;j<b;j++)
+    {
+     printf("Ingrese Valor Matriz X \n");
+     scanf("%f",&X[i][j]);
+     valoringresado= X[i][j];
+     printf("%.2f\n",valoringresado);       
+        
+    }
+ }
+
+for (i=0;i<a;i++)
+ {
+    for (j=0;j<b;j++)
+    {
+     printf("Ingrese Valor Matriz J \n");
+     scanf("%f",&J[i][j]);
+     valoringresado= J[i][j];
+     printf("%.2f\n",valoringresado); 
+    }
+ }
+ 
+printf("Suma de las dos matrices\n");
+for (i=0;i<a;i++)
+ {
+    for (j=0;j<b;j++)
+    {
+     resultado[i][j]=X[i][j]+J[i][j];
+     printf("%.2f\t",resultado[i][j]);
+    }
+  printf("\n");  
+ }
+ 
+    return 0;
+}
