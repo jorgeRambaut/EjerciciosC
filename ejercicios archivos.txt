@@ -1,0 +1,98 @@
+/*Ejercicio 3: En una empresa textil se desea generar un programa que permita
+realizar el control de la producción de telas impermeables para mochilas. Se
+sabe que los datos se encuentran guardados en un archivo pero que los
+mismos fueron ingresados por alguien que desconocía una modificación
+introducida recientemente a los códigos de los distintos tipos de telas. Es así,
+que el código correspondiente al nylon de primera era ‘NYA’ y ahora es ‘NY1’,
+mientras que el de la tela de avión era ‘AVI’ y ahora es ‘G25’. Se desea pues,
+actualizar el archivo de producción con estos nuevos códigos. El archivo es de
+registros de tres campos: partida (entero), código (cadena de tres caracteres) y
+cantidad de macrorrollos (entero). El nombre del archivo es PRODUCC.*/
+
+
+#include "stdio.h"
+#include <string.h>
+
+typedef struct 
+{
+ int partida;
+ char codigo[3];
+ int rollos;
+}Telas;
+
+FILE *Prod;
+
+void CargarDatos(int partida,char codigo[],int rollos)
+{ 
+ int i,s; 
+ s=rollos;
+ Telas tela[rollos];
+  //Prod =fopen("PRODUCC.TXT","a");
+ /*TODO validar apertura de archivo*/
+
+ Prod =fopen("PRODUCC.TXT","a+");
+ fprintf(Prod,"%s\t%s\t%s\n","partida","Rollos","Codigo");
+ for (i = 0 ;i<s;i++)
+   {   
+   tela[i].partida = partida++;
+   strcpy(tela[i].codigo ,codigo);
+   tela[i].rollos=rollos++;  
+   
+   fprintf(Prod,"%-3d\t\t\t",tela[i].partida);
+   fprintf(Prod,"%-3d\t\t\t",tela[i].rollos);
+   fprintf(Prod,"%-4s\n",strcpy(tela[i].codigo ,codigo));
+     
+  }
+   fclose(Prod);
+}
+
+void chequear(FILE *s,int tam)
+
+{
+ int i,f;
+ char NYA []="NYA";
+ char AVI[] ="AVI";
+ char codigo[3];
+ int partida,rollos;
+ Telas tela[tam];
+ s=fopen("PRODUCC.TXT","rw");
+
+ for(i=0;i<tam;i++)
+ {
+   fscanf(s, "%d\t\t\t%d\t\t\t%s",&partida,&rollos,codigo);  
+   tela[i].partida = partida;
+   strcpy(tela[i].codigo ,codigo);
+   tela[i].rollos=rollos;
+   printf("codigo = %3s\n",codigo); 
+
+   if (strcmp(codigo,"AVI")== 0)
+   {
+    //strcpy(tela[i].codigo,"NY1");
+    printf("G25\n");
+       
+
+   }
+
+   
+ 
+   //f=strncmp(codigo,NYA, 3);
+   if (strcmp(codigo,"NYA")== 0)
+    {
+      printf("NY1\n");
+    }  
+  }
+ fclose(s);
+ }
+
+
+int main ()
+
+{
+FILE *S;
+ //S=fopen("PRODUCC.TXT", "w+");
+ //CargarDatos(15,"AVI", 50) ;
+ //CargarDatos(60,"NYA", 30) ;
+
+ chequear(S,80);
+  return 0;
+}

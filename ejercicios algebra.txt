@@ -1,0 +1,236 @@
+ACTIVIDADES UNIDAD 3:
+1) Dados a = 500 +-2 y b = 200 +- 1, calcular la suma y la resta de
+ambos.
+2) Dados a = 0,70 +- 0,01 y b = 1 +- 0,01, calcular el producto de
+ambos.
+3) Dados a = 1,40 +- 0,01 y b = 0,95 +- 0,01, calcular la división de
+ambos.
+4) Los valores del tiempo de un recorrido efectuado por diferentes
+alumnos fue: 3,01 s; 3,11 s; 3,20 s; 3,15 s. El valor que se considera
+exacto es 3,1175 s.
+
+Obtener los errores absolutos y relativos de cada alumno:
+a) en el sistema (10,1, 2) en redondeo
+Medidas Errores absolutos Errores relativos
+
+3,01 s
+3,11 s
+3,20 s
+3,15 s
+
+b) en el sistema (10, 1, 2) en truncamiento
+Medidas Errores absolutos Errores relativos
+
+3,01 s
+3,11 s
+3,20 s
+3,15 s
+
+5) Obtenemos el error absoluto y relativo al considerar:
+a) 3,5 m como longitud de un terreno que mide realmente 3,59 m.
+b) 60 m como la distancia entre dos postes que están situados a
+59,91 m.
+
+6) Completa la siguiente tabla:
+
+Número exacto Aproximación décimas Error absoluto Error relativo
+11/3 		3,7
+5/11 		0,5
+3,24 		3,2
+2,888888…. 	2,9
+7/13 		0,5
+4/3 		1,3
+
+
+
+ACTIVIDADES UNIDAD 3 matematicas :
+
+#include <stdio.h>
+
+float Desviacion_Multiplicacion_Division(float a,float b,float era,float erb,float resultado)
+
+{
+  float desviacion;
+
+  desviacion=resultado*((era/a)+(erb/b));
+
+  return desviacion;
+}
+
+
+float Desviacion_Por_Suma_y_Resta(float era,float erb)
+
+{
+  float desviacion;
+
+  desviacion= (era+erb);
+
+  return desviacion;
+
+}
+
+float Division(float a , float b )
+{
+  float resultado;
+  resultado = a/b;
+  return resultado;
+}
+
+float Suma(float a , float b )
+{
+  float resultado;
+  resultado = a+b;
+  return resultado;
+}
+
+float Resta(float a , float b )
+{
+  float resultado;
+  resultado = a-b;
+  return resultado;
+}
+
+float Multiplicacion(float a , float b )
+{
+  float resultado;
+  resultado = a*b;
+  return resultado;
+}
+ 
+ float Determina_Operacion(char operacion,float a, float b) 
+ {
+   float resultado;
+
+    switch(operacion)
+    {
+        case '+':
+        {
+          return resultado = Suma(a,b );
+
+          break;
+        }
+        case '-':
+        {
+          resultado = Resta(a,b );
+
+          break;
+        }
+          case '*':
+        {
+          resultado = Multiplicacion(a,b );
+          break;
+        }
+          case '/':
+        {
+          resultado = Division(a,b );
+          break;
+        }
+        default:
+
+        {
+        printf("Ingresar operaciones permitidas ");
+
+        return resultado = 0;
+        }
+      
+     }
+     
+     return resultado;
+   } 
+ 
+float Error_Absoluto(float valorReal,float valorMedido)
+{
+ float ErrorAbsoluto;
+
+ ErrorAbsoluto= (valorMedido-valorReal );
+
+  return ErrorAbsoluto;
+}
+
+ float Error_Relativo(float ValorReal,float ErrorAbsoluto)
+{
+ float ErrorRelativo;
+  
+ ErrorRelativo= (ErrorAbsoluto/ValorReal);
+
+  return ErrorRelativo;
+}
+
+void Determina_Calulos(char operacion,float a,float b,float era, float erb)
+
+{
+
+ float resultado;
+
+    if ((operacion == '/')||(operacion == '*'))
+      {
+      printf("%.3f",resultado=Determina_Operacion(operacion, a, b));
+      printf("(+-) %.3f",Desviacion_Multiplicacion_Division(a,b,era,erb,resultado) );
+      }
+
+    else if (((operacion == '+')||(operacion == '-')))
+
+      {
+        printf("%.3f",resultado=Determina_Operacion(operacion, a, b));
+        printf("(+-) %.3f",Desviacion_Por_Suma_y_Resta(era,erb));
+
+      }
+
+
+
+}
+
+int main(void) 
+{
+ float a,b, resultado,era,erb,desviacion;
+ char operacion; 
+  
+
+   /* printf("insertar operacion\n");
+    printf("+ - * /\n");
+    scanf("%c",&operacion);    
+    printf("insertar a\n");
+    scanf("%f",&a);
+    printf("insertar desviacion a \n");
+    scanf("%f",&era); 
+    printf("insertar b\n");
+    scanf("%f",&b);
+    printf("insertar desviacion b\n"); 
+    scanf("%f",&erb);*/
+
+   //Determina_Calulos(operacion,a,b,era,erb);
+   float medidas[]={3.01,3.11,3.20,3.15};
+   const  float valorExacto= 3.1175;
+   float errorRelativo, errorAbsoluto;
+   
+   int longitud;
+   longitud = sizeof(medidas)/sizeof(*medidas);
+    printf("%16s %16s %s","Medidas","Error Absoluto","Error Relativo\n");
+    for (int i =0;i<longitud;i++)
+    {
+
+     errorAbsoluto=Error_Absoluto(valorExacto,medidas[i]);
+     errorRelativo=Error_Relativo(valorExacto, errorAbsoluto);    
+     printf("%17.2f%11.2f%15f\n",medidas[i],errorAbsoluto,errorRelativo);
+
+
+
+     printf("Ea = %-f ",errorAbsoluto=Error_Absoluto(3.666666666666666666666666666667,3.7));
+     printf("Er = %-f\n",errorRelativo=Error_Relativo(3.666666666666666666666666666667,errorAbsoluto)*100);
+     printf("Ea = %-f",errorAbsoluto=Error_Absoluto(0.45454545454545454545454545454545, 0.5));
+     printf("Er = %-f\n ",errorRelativo=Error_Relativo(0.45454545454545454545454545454545,errorAbsoluto)*100);
+     printf("Ea = %-f ",errorAbsoluto=Error_Absoluto(3.24, 3.2));
+     printf("Er = %-f\n",errorRelativo=Error_Relativo(3.24,errorAbsoluto)*100);
+     printf("Ea = %-f ",errorAbsoluto=Error_Absoluto(2.888888, 2.9));
+     printf("Er = %-f \n",errorRelativo=Error_Relativo(2.888888,errorAbsoluto)*100);
+     printf("Ea = %-f",errorAbsoluto=Error_Absoluto(0.53846153846153846153846153846154, 0.5));
+     printf(" Er = %-f \n",errorRelativo=Error_Relativo(0.53846153846153846153846153846154,errorAbsoluto)*100);
+     printf("Ea = %-f",errorAbsoluto=Error_Absoluto(1.333333333333333333333333333333,1.3));
+     printf(" Er = %-f\n",errorRelativo=Error_Relativo(1.333333333333333333333333333333,errorAbsoluto)*100);
+    }
+    
+ 
+  
+
+  return 0;
+}

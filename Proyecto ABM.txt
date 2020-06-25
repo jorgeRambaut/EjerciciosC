@@ -1,0 +1,179 @@
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+
+struct producto {
+char descripcion[13];// no se si esta bien tomar el tamaño en bytes
+char codigo[6];
+float cantidad;
+float precio;
+struct producto *ptrproducto;//ver cuando lo podemos usar 
+};
+
+typedef struct producto Producto;
+
+void Ejecuta_opcion(const int opcion);
+void imprime_opciones();
+void Ingresa_Producto();
+void Actualiza_Producto();
+void Elimina_Prodcuto();
+void Consulta_Producto();
+void Imprime_Detalles();
+void Inicia_Programa();
+void solicita_Datos_Para_Ingresar();
+
+void solicita_Datos_Para_Ingresar(){
+printf("ingresar\ndescripcion, Codigo,Cantidad, Precio\n");
+}
+
+void Ingresa_Producto(){
+
+char descripcion[13],codigo[6] ;
+float cantidad,precio;
+FILE *ptrArchivo_producto;
+Producto producto_Nuevo;
+
+if ((ptrArchivo_producto=fopen("Producto.txt","ab"))== NULL){
+ printf("error al abrir el archivo");
+}
+
+else{
+    solicita_Datos_Para_Ingresar();
+    scanf("%13s%6s%f%f",descripcion,codigo,&cantidad,&precio);
+       
+       
+     /*strcpy(producto_Nuevo.codigo,codigo);
+     producto_Nuevo.cantidad= cantidad;
+     producto_Nuevo.precio= precio;
+     strcpy(producto_Nuevo.descripcion,descripcion);
+
+    fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto);*/
+    fprintf(ptrArchivo_producto ,"%-13s %-6s %-.2f %-.2f\n", descripcion,codigo,cantidad,precio);
+    }     
+    fflush(ptrArchivo_producto);
+    fclose(ptrArchivo_producto);
+
+}
+
+void Actualiza_Producto(){}
+void Elimina_Prodcuto(){}
+void Consulta_Producto(){
+
+}
+void Imprime_Detalles(){
+
+
+  char descripcion[13],codigo[6];
+  float cantidad,precio;
+   FILE *ptrArchivo_producto;
+  
+        if ((ptrArchivo_producto=fopen("Producto.txt","r"))== NULL){
+    printf("error al abrir el archivo");
+    }
+
+    else{
+
+    printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+    "Descripcion","Codigo","Cantidad","Precio");
+    fscanf(ptrArchivo_producto,"%s%s%f%f",descripcion,codigo,&cantidad,&precio);
+
+while(!feof(ptrArchivo_producto))
+{
+ printf("%-13s\t%-6s\t%-.2f\t%-.2f\n",descripcion,codigo,cantidad,precio);
+ fscanf(ptrArchivo_producto,"%13s%6s%f%f",descripcion,codigo,&cantidad,&precio); 
+
+}
+
+fclose(ptrArchivo_producto);
+
+}
+
+
+
+
+
+
+
+
+
+}
+
+void Inicia_Programa(){
+ int opcion; 
+  do {
+   imprime_opciones();
+   scanf("%d",&opcion);
+   Ejecuta_opcion(opcion);
+  } while (opcion!=6) ;
+
+}
+
+
+void imprime_opciones()
+{ 
+  printf("Elegir opcion, n para salir:\n");
+  printf("1 %s\n2 %s\n3 %s\n4 %s\n5 %s\n6 %s\n",
+  "Ingresar Producto",
+  "Actualiza Producto",
+  "Elimina Producto",
+  "Consulta Producto",
+  "Imprime Detalles",
+  "Salir");  
+}
+
+void  Ejecuta_opcion(const int opcion)
+
+{
+ switch (opcion)
+  {
+   case 1 :
+   Ingresa_Producto();
+   printf("Producto Ingresado !!\n\n");
+   
+   break;
+
+   case 2 :
+   Actualiza_Producto();
+   printf("Opcion 2\n");
+   break;
+
+   case 3 :
+   Elimina_Prodcuto();
+   printf("Opcion 3\n");
+   break;
+
+   case 4 :
+   Consulta_Producto();
+   printf("Opcion 4\n");
+   break;
+
+   case 5 :
+   Imprime_Detalles();
+   printf("Opcion 5\n");
+   break;
+
+   case 6 :
+
+   printf("Opcion salir\n");
+
+   break;
+
+   default :
+   printf("\nIngresar Opcion Valida\n");
+     
+   break;
+  }
+
+}
+
+
+
+int main(void) {
+  
+  
+  
+  Inicia_Programa();
+ 
+
+  return 0;
+}
