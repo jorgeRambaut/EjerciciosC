@@ -1,0 +1,28 @@
+/*5.- Generar un algoritmo en seudocódigo que permita calcular el volumen de una porción de esfera según la siguiente fórmula: 3,1415926 * r^3/9. El radio se lee de teclado. Escribir el resultado en pantalla.*/ 
+
+#include "stdio.h"
+#define FORMULA(r) (3.1415926 * (r^3/9))
+
+
+float pedirdatos(){
+ float valor;
+ printf("%s","Ingresar Valor ");
+ scanf("%f",&valor);
+ return valor;
+}
+
+void imprimir(int n)
+{
+ float resultado;
+ printf("Volumen =%-5.2f",resultado=FORMULA(n));
+
+}
+
+int main(void) {
+ int c;
+
+ c=pedirdatos();
+ imprimir(c);
+
+  return 0;
+}

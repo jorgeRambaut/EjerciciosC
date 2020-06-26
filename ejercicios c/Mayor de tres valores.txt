@@ -1,0 +1,43 @@
+/*3.- Realizar un algoritmo en seudocódigo que permita leer tres valores que se ingresan por teclado. Se deberá imprimir en pantalla el mayor de los tres valores. */
+
+#include "stdio.h"
+float encuentra_El_Mayor(float numeros[],int tam);
+
+
+float encuentra_El_Mayor(float numeros[], int tam)
+
+{
+  
+  int i;
+  
+  
+  float mayor;
+  mayor=numeros[i];
+
+        for (i = 0 ;i<=tam;i++){
+
+            if (mayor<numeros[i+1])
+            {
+              mayor = numeros[i+1];
+            }
+         
+         }  
+  return mayor;
+  
+  }
+
+
+
+int main(void) {
+  float numeros[]={55,123.5,145.23 };
+  float mayor;
+  int tamaño=sizeof(numeros)/sizeof(*numeros);
+  printf("Tamaño %d",tamaño);
+
+  printf("%-s%-.2f",
+  " El mayor numero es : ",mayor = encuentra_El_Mayor(numeros,tamaño));
+  
+
+
+  return 0;
+}

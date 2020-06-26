@@ -1,0 +1,35 @@
+4.- Realizar un algoritmo en seudocódigo que permita calcular el resultado de esta operación:
+6*5*4*3
+O sea, multiplicar los números del 6 al 3. El resultado de esa multiplicación debe imprimirse en pantalla. Debe usarse una instrucción de bucle para resolver el problema.
+
+#include "stdio.h"
+
+
+float realizar_calculo(int numero);
+
+float realizar_calculo(int numero)
+
+{
+
+ float calculo;
+
+ calculo= 1;
+
+ int i;
+
+ for (i=numero;i>=3;--i)
+ {
+  calculo*=numero--;
+
+  //printf("%f\n",calculo);
+ 
+  }
+return calculo;
+}
+
+int main(void) {
+  float resultado;
+  printf("%s%s%.2f",
+  "Total ","6x5x4x3 = ",resultado=realizar_calculo(6));
+  return 0;
+}

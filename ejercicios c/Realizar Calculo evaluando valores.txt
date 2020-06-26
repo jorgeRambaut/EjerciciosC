@@ -1,0 +1,65 @@
+#include "stdio.h"
+
+/*2.- Generar un algoritmo en seudocódigo que permita realizar el siguiente cálculo: valor1 + 3*valor2 - 5, donde valor1 y valor2 son reales que se ingresan por teclado. Debe verificarse, antes de hacer el cálculo, que ambos valores sean mayores a 10 y que no sean uno ni dos. El resultado debe escribirse en la pantalla.*/
+
+void chequear_valores(const float numero1,const float numero2);
+
+float realizar_Calculo(float numero1,float numero2);
+
+float realizar_Calculo(float numero1,float numero2){
+
+float operacion;
+
+operacion= ((numero1+3)*(numero2 - 5));
+
+return operacion;
+}
+
+
+float solicitar_valores(){
+
+  float valor_Solicitado;
+
+  printf("%-s","Ingresar Valor ");
+  scanf("%f",&valor_Solicitado);
+
+  return valor_Solicitado;
+
+}
+
+void chequear_valores( float numero1, float numero2)
+{
+}
+
+int main(void){
+  
+    float numero1,numero2;
+
+    numero1= solicitar_valores();
+    numero2= solicitar_valores();
+
+      while ((numero1<10 || numero2 <10)
+              ||(numero1==2 ||numero2==2)
+              ||(numero1==3 ||numero2==3))
+        {
+            printf("Ingresar Valores Mayores a 10\n");
+            numero1=solicitar_valores();
+            numero2=solicitar_valores();     
+        }   
+      
+    
+     printf("%s%-.2f","Resultado = ",realizar_Calculo(numero1,  numero2));
+            
+            
+          
+    return 0;
+  } 
+
+
+
+4.- Realizar un algoritmo en seudocódigo que permita calcular el resultado de esta operación:
+6*5*4*3
+O sea, multiplicar los números del 6 al 3. El resultado de esa multiplicación debe imprimirse en pantalla. Debe usarse una instrucción de bucle para resolver el problema.
+ 
+5.- Generar un algoritmo en seudocódigo que permita calcular el volumen de una porción de esfera según la siguiente fórmula: 3,1415926 * r^3/9. El radio se lee de teclado. Escribir el resultado en pantalla. */
+float solicitar_valores();
