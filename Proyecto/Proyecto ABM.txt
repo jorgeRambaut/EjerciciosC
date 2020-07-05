@@ -55,50 +55,56 @@ else{
 
 }
 
+
 void Actualiza_Producto(){
-Producto producto_actualizar;
-FILE *Archivo_Actualizar;
-char descripcion[13],codigo[6] ;
-float cantidad,precio;
-if ((Archivo_Actualizar=fopen("Producto.txt","r+"))== NULL){
+
+}
+
+
+void Consulta_Producto(){
+Producto producto_Consultar;
+FILE *Archivo_Consultar;
+
+if ((Archivo_Consultar=fopen("Producto.txt","r+"))== NULL){
  printf("error al abrir el archivo");
 }
 else 
   {
   char nombre[13];
 
-    fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_actualizar.descripcion,
-    producto_actualizar.codigo,
-    &producto_actualizar.cantidad,
-    &producto_actualizar.precio); 
+    fscanf(Archivo_Consultar,"%13s%6s%f%f",producto_Consultar.descripcion,
+    producto_Consultar.codigo,
+    &producto_Consultar.cantidad,
+    &producto_Consultar.precio); 
 
     printf("Ingresar Nombre a buscar\n");
     scanf("%s",nombre);
 
-    while (!feof(Archivo_Actualizar)){    
+    while (!feof(Archivo_Consultar)){    
 
           /*printf("%13s%6s%f%f\n",producto_actualizar.descripcion,
           producto_actualizar.codigo,producto_actualizar.cantidad,producto_actualizar.precio);*/
                  
-          if (strcmp(producto_actualizar.descripcion,nombre)==0){         
-          printf("%13s%6s%f%f\n",
-          producto_actualizar.descripcion,
-          producto_actualizar.codigo,
-          producto_actualizar.cantidad,
-          producto_actualizar.precio);
+          if (strcmp(producto_Consultar.descripcion,nombre)==0){ 
+           printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+    "Descripcion","Codigo","Cantidad","Precio");        
+          printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
+          producto_Consultar.descripcion,
+          producto_Consultar.codigo,
+          producto_Consultar.cantidad,
+          producto_Consultar.precio);
           }
 
-    fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_actualizar.descripcion,
-          producto_actualizar.codigo,
-          &producto_actualizar.cantidad,
-          &producto_actualizar.precio); 
+          fscanf(Archivo_Consultar,"%13s%6s%f%f",producto_Consultar.descripcion,
+          producto_Consultar.codigo,
+          &producto_Consultar.cantidad,
+          &producto_Consultar.precio); 
     }
   }
 }
 void Elimina_Prodcuto(){}
-void Consulta_Producto(){
 
-}
+
 void Imprime_Detalles(){
 
 
@@ -126,15 +132,6 @@ while(!feof(ptrArchivo_producto))
 fclose(ptrArchivo_producto);
 
 }
-
-
-
-
-
-
-
-
-
 }
 
 void Inicia_Programa(){
@@ -183,7 +180,6 @@ char nombre[13];
 
    case 4 :
    Consulta_Producto();
-   printf("Opcion 4\n");
    break;
 
    case 5 :
