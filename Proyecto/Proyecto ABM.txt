@@ -55,7 +55,46 @@ else{
 
 }
 
-void Actualiza_Producto(){}
+void Actualiza_Producto(){
+Producto producto_actualizar;
+FILE *Archivo_Actualizar;
+char descripcion[13],codigo[6] ;
+float cantidad,precio;
+if ((Archivo_Actualizar=fopen("Producto.txt","r+"))== NULL){
+ printf("error al abrir el archivo");
+}
+else 
+  {
+  char nombre[13];
+
+    fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_actualizar.descripcion,
+    producto_actualizar.codigo,
+    &producto_actualizar.cantidad,
+    &producto_actualizar.precio); 
+
+    printf("Ingresar Nombre a buscar\n");
+    scanf("%s",nombre);
+
+    while (!feof(Archivo_Actualizar)){    
+
+          /*printf("%13s%6s%f%f\n",producto_actualizar.descripcion,
+          producto_actualizar.codigo,producto_actualizar.cantidad,producto_actualizar.precio);*/
+                 
+          if (strcmp(producto_actualizar.descripcion,nombre)==0){         
+          printf("%13s%6s%f%f\n",
+          producto_actualizar.descripcion,
+          producto_actualizar.codigo,
+          producto_actualizar.cantidad,
+          producto_actualizar.precio);
+          }
+
+    fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_actualizar.descripcion,
+          producto_actualizar.codigo,
+          &producto_actualizar.cantidad,
+          &producto_actualizar.precio); 
+    }
+  }
+}
 void Elimina_Prodcuto(){}
 void Consulta_Producto(){
 
@@ -101,7 +140,7 @@ fclose(ptrArchivo_producto);
 void Inicia_Programa(){
  int opcion; 
   do {
-   imprime_opciones();
+   imprime_opciones(); 
    scanf("%d",&opcion);
    Ejecuta_opcion(opcion);
   } while (opcion!=6) ;
@@ -124,6 +163,7 @@ void imprime_opciones()
 void  Ejecuta_opcion(const int opcion)
 
 {
+char nombre[13];
  switch (opcion)
   {
    case 1 :
@@ -132,9 +172,8 @@ void  Ejecuta_opcion(const int opcion)
    
    break;
 
-   case 2 :
+   case 2 :   
    Actualiza_Producto();
-   printf("Opcion 2\n");
    break;
 
    case 3 :
