@@ -1,7 +1,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
-
 struct producto {
 char descripcion[13];// no se si esta bien tomar el tamaño en bytes
 char codigo[6];
@@ -58,7 +57,77 @@ else{
 
 void Actualiza_Producto(){
 
+  Producto producto_a_Actualizar;
+  FILE *Archivo_Actualizar ;
+
+if ((Archivo_Actualizar=fopen("Producto.txt","r+"))== NULL){
+ printf("error al abrir el archivo");
 }
+else 
+  {
+  char nombre[13];
+
+    fscanf(Archivo_Actualizar,"%13s%6s%f%f",  
+    producto_a_Actualizar.descripcion,
+    producto_a_Actualizar.codigo,
+    &producto_a_Actualizar.cantidad,
+    &producto_a_Actualizar.precio); 
+
+    printf("Ingresar Nombre a buscar\n");
+    scanf("%s",nombre);
+
+    while (!feof(Archivo_Actualizar)){    
+                 
+            if (strcmp(producto_a_Actualizar.descripcion,nombre)==0){ 
+
+             int posicion;
+             posicion=ftell(Archivo_Actualizar);
+             
+             fseek(Archivo_Actualizar, posicion-(posicion*sizeof(producto_a_Actualizar)),SEEK_SET);
+
+             printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+              "Descripcion","Codigo","Cantidad","Precio");        
+              printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
+              producto_a_Actualizar.descripcion,
+              producto_a_Actualizar.codigo,
+              producto_a_Actualizar.cantidad,
+              producto_a_Actualizar.precio);
+
+
+
+              solicita_Datos_Para_Ingresar();
+
+
+              scanf("%13s%6s%f%f",producto_a_Actualizar.descripcion,
+              producto_a_Actualizar.codigo,
+              &producto_a_Actualizar.cantidad,
+              &producto_a_Actualizar.precio);
+
+
+              fprintf(Archivo_Actualizar ,"%-13s\t%-6s\t%-.2f\t%-.2f\n",
+              producto_a_Actualizar.descripcion,
+              producto_a_Actualizar.codigo,
+              producto_a_Actualizar.cantidad,
+              producto_a_Actualizar.precio);
+
+             printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+              "Descripcion","Codigo","Cantidad","Precio");        
+              printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
+              producto_a_Actualizar.descripcion,
+              producto_a_Actualizar.codigo,
+              producto_a_Actualizar.cantidad,
+              producto_a_Actualizar.precio);
+          }
+
+          fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_a_Actualizar.descripcion,
+          producto_a_Actualizar.codigo,
+          &producto_a_Actualizar.cantidad,
+          &producto_a_Actualizar.precio); 
+    }
+  }
+}
+
+
 
 
 void Consulta_Producto(){
@@ -141,7 +210,6 @@ void Inicia_Programa(){
    scanf("%d",&opcion);
    Ejecuta_opcion(opcion);
   } while (opcion!=6) ;
-
 }
 
 
@@ -154,7 +222,8 @@ void imprime_opciones()
   "Elimina Producto",
   "Consulta Producto",
   "Imprime Detalles",
-  "Salir");  
+  "Salir"); 
+ 
 }
 
 void  Ejecuta_opcion(const int opcion)
