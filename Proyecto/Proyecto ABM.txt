@@ -38,7 +38,12 @@ if ((ptrArchivo_producto=fopen("Producto.txt","ab"))== NULL){
 
 else{
     solicita_Datos_Para_Ingresar();
-    scanf("%13s%6s%f%f",descripcion,codigo,&cantidad,&precio);
+
+    scanf("%13s%6s%f%f",
+    producto_Nuevo.descripcion,
+    producto_Nuevo.codigo,
+    &producto_Nuevo.cantidad,
+    &producto_Nuevo.precio);
        
        
      /*strcpy(producto_Nuevo.codigo,codigo);
@@ -47,9 +52,12 @@ else{
      strcpy(producto_Nuevo.descripcion,descripcion);
 
     fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto);*/
-    fprintf(ptrArchivo_producto ,"%-13s %-6s %-.2f %-.2f\n", descripcion,codigo,cantidad,precio);
+    fprintf(ptrArchivo_producto ,"%-13s %-6s %-.2f %-.2f\n",  producto_Nuevo.descripcion,
+    producto_Nuevo.codigo,
+    producto_Nuevo.cantidad,
+    producto_Nuevo.precio);
     }     
-    fflush(ptrArchivo_producto);
+    
     fclose(ptrArchivo_producto);
 
 }
@@ -83,7 +91,7 @@ else
              int posicion;
              posicion=ftell(Archivo_Actualizar);
              
-             fseek(Archivo_Actualizar, posicion-(posicion*sizeof(producto_a_Actualizar)),SEEK_SET);
+             fseek(Archivo_Actualizar,(posicion/sizeof(producto_a_Actualizar)),SEEK_CUR);
 
              printf("%-11s\t%-6s\t%-8s\t%-6s\n",
               "Descripcion","Codigo","Cantidad","Precio");        
