@@ -20,12 +20,10 @@ printf("ingresar\ndescripcion, Codigo,Cantidad, Precio\n");
 
 void Ingresa_Producto(){
 
-char descripcion[13],codigo[6] ;
-float cantidad,precio;
 FILE *ptrArchivo_producto;
 Producto producto_Nuevo;
 
-if ((ptrArchivo_producto=fopen("Producto.txt","ab"))== NULL){
+if ((ptrArchivo_producto=fopen("Producto.txt","a+"))== NULL){
  printf("error al abrir el archivo");
 }
 
@@ -37,14 +35,7 @@ else{
     producto_Nuevo.codigo,
     &producto_Nuevo.cantidad,
     &producto_Nuevo.precio);
-       
-       
-     /*strcpy(producto_Nuevo.codigo,codigo);
-     producto_Nuevo.cantidad= cantidad;
-     producto_Nuevo.precio= precio;
-     strcpy(producto_Nuevo.descripcion,descripcion);
-
-    fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto);*/
+     
     fprintf(ptrArchivo_producto ,"%-13s %-6s %-.2f %-.2f\n",  producto_Nuevo.descripcion,
     producto_Nuevo.codigo,
     producto_Nuevo.cantidad,
@@ -135,7 +126,7 @@ void Consulta_Producto(){
 Producto producto_Consultar;
 FILE *Archivo_Consultar;
 
-if ((Archivo_Consultar=fopen("Producto.txt","r+"))== NULL){
+if ((Archivo_Consultar=fopen("Producto.txt","r"))== NULL){
  printf("error al abrir el archivo");
 }
 else 
@@ -150,14 +141,12 @@ else
     printf("Ingresar Nombre a buscar\n");
     scanf("%s",nombre);
 
-    while (!feof(Archivo_Consultar)){    
-
-          /*printf("%13s%6s%f%f\n",producto_actualizar.descripcion,
-          producto_actualizar.codigo,producto_actualizar.cantidad,producto_actualizar.precio);*/
-                 
+    while (!feof(Archivo_Consultar)){            
+          
           if (strcmp(producto_Consultar.descripcion,nombre)==0){ 
            printf("%-11s\t%-6s\t%-8s\t%-6s\n",
-    "Descripcion","Codigo","Cantidad","Precio");        
+           "Descripcion","Codigo","Cantidad","Precio"); 
+
           printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
           producto_Consultar.descripcion,
           producto_Consultar.codigo,
@@ -176,32 +165,48 @@ void Elimina_Prodcuto(){}
 
 
 void Imprime_Detalles(){
-
-
-  char descripcion[13],codigo[6];
-  float cantidad,precio;
-   FILE *ptrArchivo_producto;
   
-        if ((ptrArchivo_producto=fopen("Producto.txt","r"))== NULL){
-    printf("error al abrir el archivo");
-    }
+  FILE *ptrArchivo_producto;
+  Producto imprimirProductos;
+  
+    if ((ptrArchivo_producto=fopen("Producto.txt","r"))== NULL){
+      printf("error al abrir el archivo");
+      }
 
-    else{
+      else{
 
-    printf("%-11s\t%-6s\t%-8s\t%-6s\n",
-    "Descripcion","Codigo","Cantidad","Precio");
-    fscanf(ptrArchivo_producto,"%s%s%f%f",descripcion,codigo,&cantidad,&precio);
+      printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+      "Descripcion","Codigo","Cantidad","Precio");
 
-while(!feof(ptrArchivo_producto))
-{
- printf("%-13s\t%-6s\t%-.2f\t%-.2f\n",descripcion,codigo,cantidad,precio);
- fscanf(ptrArchivo_producto,"%13s%6s%f%f",descripcion,codigo,&cantidad,&precio); 
+      fscanf(ptrArchivo_producto,"%s%s%f%f",
+      imprimirProductos.descripcion,
+      imprimirProductos.codigo,
+      &imprimirProductos.cantidad,
+      &imprimirProductos.precio);
+      
+      
+    
 
-}
+          while(!feof(ptrArchivo_producto))
+          {
+              printf("%-13s\t%-6s\t%-.2f\t%-.2f\n",
+              imprimirProductos.descripcion,
+              imprimirProductos.codigo,
+              imprimirProductos.cantidad,
+              imprimirProductos.precio);
 
-fclose(ptrArchivo_producto);
+              fscanf(ptrArchivo_producto,"%s%s%f%f",
+              imprimirProductos.descripcion,
+              imprimirProductos.codigo,
+              &imprimirProductos.cantidad,
+              &imprimirProductos.precio);
+              
 
-}
+          }
+
+  fclose(ptrArchivo_producto);
+
+  }
 }
 
 void Inicia_Programa(){
@@ -216,7 +221,8 @@ void Inicia_Programa(){
 
 void imprime_opciones()
 { 
-  printf("Elegir opcion, n para salir:\n");
+   
+  printf("\nElegir opcion, 6 para salir:\n");
   printf("1 %s\n2 %s\n3 %s\n4 %s\n5 %s\n6 %s\n",
   "Ingresar Producto",
   "Actualiza Producto",
@@ -230,42 +236,45 @@ void imprime_opciones()
 void  Ejecuta_opcion(const int opcion)
 
 {
-char nombre[13];
+
  switch (opcion)
   {
    case 1 :
+   system("clear") ;
    Ingresa_Producto();
-   printf("Producto Ingresado !!\n\n");
-   
+   printf("Producto Ingresado !!\n\n");  
    break;
 
-   case 2 :   
+   case 2 : 
+   system("clear") ;  
    Actualiza_Producto();
    break;
 
    case 3 :
+   system("clear") ;
    Elimina_Prodcuto();
    printf("Opcion 3\n");
    break;
 
    case 4 :
+   system("clear") ;
    Consulta_Producto();
    break;
 
    case 5 :
+   system("clear") ;
    Imprime_Detalles();
-   printf("Opcion 5\n");
    break;
 
    case 6 :
-
+   system("clear") ;
    printf("Opcion salir\n");
 
    break;
 
    default :
-   printf("\nIngresar Opcion Valida\n");
-     
+   system("clear") ;
+   printf("\nIngresar Opcion Valida\n");     
    break;
   }
 
