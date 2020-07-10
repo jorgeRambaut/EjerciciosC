@@ -23,61 +23,62 @@ void Ingresa_Producto(){
 FILE *ptrArchivo_producto;
 Producto producto_Nuevo;
 
-if ((ptrArchivo_producto=fopen("Producto.txt","a+"))== NULL){
+if ((ptrArchivo_producto=fopen("Producto.txt","a+b"))== NULL){
  printf("error al abrir el archivo");
 }
 
-else{
-    solicita_Datos_Para_Ingresar();
+      else{
+          solicita_Datos_Para_Ingresar();
 
-    scanf("%13s%6s%f%f",
-    producto_Nuevo.descripcion,
-    producto_Nuevo.codigo,
-    &producto_Nuevo.cantidad,
-    &producto_Nuevo.precio);
-     
-    fprintf(ptrArchivo_producto ,"%-13s %-6s %-.2f %-.2f\n",  producto_Nuevo.descripcion,
-    producto_Nuevo.codigo,
-    producto_Nuevo.cantidad,
-    producto_Nuevo.precio);
-    }     
-    
-    fclose(ptrArchivo_producto);
+          scanf("%13s%6s%f%f",
+          producto_Nuevo.descripcion,
+          producto_Nuevo.codigo,
+          &producto_Nuevo.cantidad,
+          &producto_Nuevo.precio);
 
+          fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto) ;
+          
+
+          }
+            
+fclose(ptrArchivo_producto);
 }
-
-
 void Actualiza_Producto(){
 
   Producto producto_a_Actualizar;
   FILE *Archivo_Actualizar ;
 
-if ((Archivo_Actualizar=fopen("Producto.txt","r+"))== NULL){
+if ((Archivo_Actualizar=fopen("Producto.txt","r+b"))== NULL){
  printf("error al abrir el archivo");
 }
 else 
   {
-  char nombre[13];
+    char nombre[13];
 
-    fscanf(Archivo_Actualizar,"%13s%6s%f%f",  
+   /* fscanf(Archivo_Actualizar,"%13s%6s%f%f",  
     producto_a_Actualizar.descripcion,
     producto_a_Actualizar.codigo,
     &producto_a_Actualizar.cantidad,
-    &producto_a_Actualizar.precio); 
+    &producto_a_Actualizar.precio); */
 
     printf("Ingresar Nombre a buscar\n");
     scanf("%s",nombre);
+    fflush(stdin);
 
     while (!feof(Archivo_Actualizar)){    
                  
             if (strcmp(producto_a_Actualizar.descripcion,nombre)==0){ 
 
-             int posicion;
-             posicion=ftell(Archivo_Actualizar);
-             
-             fseek(Archivo_Actualizar,(posicion/sizeof(producto_a_Actualizar)),SEEK_CUR);
+            int bytesporreg;
 
-             printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+            bytesporreg=sizeof(Producto);
+            long desp;
+
+            desp=(long)(nombre-1)*bytesporreg;
+            fseek(Archivo_Actualizar,desp,SEEK_SET);
+            fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
+
+              printf("Datos a Modificar\n%-11s\t%-6s\t%-8s\t%-6s\n",
               "Descripcion","Codigo","Cantidad","Precio");        
               printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
               producto_a_Actualizar.descripcion,
@@ -85,10 +86,7 @@ else
               producto_a_Actualizar.cantidad,
               producto_a_Actualizar.precio);
 
-
-
               solicita_Datos_Para_Ingresar();
-
 
               scanf("%13s%6s%f%f",producto_a_Actualizar.descripcion,
               producto_a_Actualizar.codigo,
@@ -96,13 +94,10 @@ else
               &producto_a_Actualizar.precio);
 
 
-              fprintf(Archivo_Actualizar ,"%-13s\t%-6s\t%-.2f\t%-.2f\n",
-              producto_a_Actualizar.descripcion,
-              producto_a_Actualizar.codigo,
-              producto_a_Actualizar.cantidad,
-              producto_a_Actualizar.precio);
+              fseek(Archivo_Actualizar,-bytesporreg,SEEK_CUR);
+              fwrite(&producto_a_Actualizar,bytesporreg,1,Archivo_Actualizar);
 
-             printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+             printf("Datos Modificados \n%-11s\t%-6s\t%-8s\t%-6s\n",
               "Descripcion","Codigo","Cantidad","Precio");        
               printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
               producto_a_Actualizar.descripcion,
@@ -110,11 +105,8 @@ else
               producto_a_Actualizar.cantidad,
               producto_a_Actualizar.precio);
           }
-
-          fscanf(Archivo_Actualizar,"%13s%6s%f%f",producto_a_Actualizar.descripcion,
-          producto_a_Actualizar.codigo,
-          &producto_a_Actualizar.cantidad,
-          &producto_a_Actualizar.precio); 
+    fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
+ 
     }
   }
 }
@@ -160,6 +152,9 @@ else
           &producto_Consultar.precio); 
     }
   }
+
+
+
 }
 void Elimina_Prodcuto(){}
 
@@ -174,40 +169,35 @@ void Imprime_Detalles(){
       }
 
       else{
+           int bytesporreg;
+           bytesporreg=sizeof(Producto);
 
-      printf("%-11s\t%-6s\t%-8s\t%-6s\n",
-      "Descripcion","Codigo","Cantidad","Precio");
+           fseek(ptrArchivo_producto,0,SEEK_SET);
+           fread(&imprimirProductos,bytesporreg,1,ptrArchivo_producto);
 
-      fscanf(ptrArchivo_producto,"%s%s%f%f",
-      imprimirProductos.descripcion,
-      imprimirProductos.codigo,
-      &imprimirProductos.cantidad,
-      &imprimirProductos.precio);
-      
-      
+               printf("%-11s\t%-6s\t%-8s\t%-6s\n",
+               "Descripcion","Codigo","Cantidad","Precio"); 
     
 
-          while(!feof(ptrArchivo_producto))
-          {
-              printf("%-13s\t%-6s\t%-.2f\t%-.2f\n",
-              imprimirProductos.descripcion,
-              imprimirProductos.codigo,
-              imprimirProductos.cantidad,
-              imprimirProductos.precio);
+                    while(!feof(ptrArchivo_producto)) {
 
-              fscanf(ptrArchivo_producto,"%s%s%f%f",
-              imprimirProductos.descripcion,
-              imprimirProductos.codigo,
-              &imprimirProductos.cantidad,
-              &imprimirProductos.precio);
+                        printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
+                        imprimirProductos.descripcion,
+                        imprimirProductos.codigo,
+                        imprimirProductos.cantidad,
+                        imprimirProductos.precio);
+
+                      fread(&imprimirProductos,bytesporreg,1,ptrArchivo_producto);
+
+                    }
               
 
-          }
+             }
 
   fclose(ptrArchivo_producto);
 
   }
-}
+
 
 void Inicia_Programa(){
  int opcion; 
@@ -253,7 +243,7 @@ void  Ejecuta_opcion(const int opcion)
    case 3 :
    system("clear") ;
    Elimina_Prodcuto();
-   printf("Opcion 3\n");
+   printf("Opion 3\n");
    break;
 
    case 4 :
