@@ -23,7 +23,7 @@ void Ingresa_Producto(){
 FILE *ptrArchivo_producto;
 Producto producto_Nuevo;
 
-if ((ptrArchivo_producto=fopen("Producto.txt","a+b"))== NULL){
+if ((ptrArchivo_producto=fopen("Producto.txt","ab+"))== NULL){
  printf("error al abrir el archivo");
 }
 
@@ -35,7 +35,6 @@ if ((ptrArchivo_producto=fopen("Producto.txt","a+b"))== NULL){
           producto_Nuevo.codigo,
           &producto_Nuevo.cantidad,
           &producto_Nuevo.precio);
-
           fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto) ;
           
 
@@ -61,7 +60,7 @@ else
     &producto_a_Actualizar.cantidad,
     &producto_a_Actualizar.precio); */
 
-    printf("Ingresar Nombre a buscar\n");
+    printf("Ingresar nombre \n");
     scanf("%s",nombre);
     fflush(stdin);
 
@@ -69,14 +68,9 @@ else
                  
             if (strcmp(producto_a_Actualizar.descripcion,nombre)==0){ 
 
-            int bytesporreg;
+            //fseek(Archivo_Actualizar,-sizeof(Producto),SEEK_CUR);  
 
-            bytesporreg=sizeof(Producto);
-            long desp;
-
-            desp=(long)(nombre-1)*bytesporreg;
-            fseek(Archivo_Actualizar,desp,SEEK_SET);
-            fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
+            //fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
 
               printf("Datos a Modificar\n%-11s\t%-6s\t%-8s\t%-6s\n",
               "Descripcion","Codigo","Cantidad","Precio");        
@@ -94,8 +88,8 @@ else
               &producto_a_Actualizar.precio);
 
 
-              fseek(Archivo_Actualizar,-bytesporreg,SEEK_CUR);
-              fwrite(&producto_a_Actualizar,bytesporreg,1,Archivo_Actualizar);
+              fseek(Archivo_Actualizar,-sizeof(Producto),SEEK_CUR);  
+              fwrite(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
 
              printf("Datos Modificados \n%-11s\t%-6s\t%-8s\t%-6s\n",
               "Descripcion","Codigo","Cantidad","Precio");        
