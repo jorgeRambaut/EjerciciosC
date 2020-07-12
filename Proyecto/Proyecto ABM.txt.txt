@@ -102,7 +102,12 @@ else
     fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
  
     }
+
+
+
   }
+
+  fclose(Archivo_Actualizar);
 }
 
 
@@ -112,43 +117,36 @@ void Consulta_Producto(){
 Producto producto_Consultar;
 FILE *Archivo_Consultar;
 
-if ((Archivo_Consultar=fopen("Producto.txt","r"))== NULL){
+if ((Archivo_Consultar=fopen("Producto.txt","rb"))== NULL){
  printf("error al abrir el archivo");
 }
 else 
   {
-  char nombre[13];
+    char nombre[13];
 
-    fscanf(Archivo_Consultar,"%13s%6s%f%f",producto_Consultar.descripcion,
-    producto_Consultar.codigo,
-    &producto_Consultar.cantidad,
-    &producto_Consultar.precio); 
-
-    printf("Ingresar Nombre a buscar\n");
+    printf("Ingresar nombre \n");
     scanf("%s",nombre);
+    fflush(stdin);
 
-    while (!feof(Archivo_Consultar)){            
-          
-          if (strcmp(producto_Consultar.descripcion,nombre)==0){ 
-           printf("%-11s\t%-6s\t%-8s\t%-6s\n",
-           "Descripcion","Codigo","Cantidad","Precio"); 
-
-          printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
-          producto_Consultar.descripcion,
-          producto_Consultar.codigo,
-          producto_Consultar.cantidad,
-          producto_Consultar.precio);
+             while (!feof(Archivo_Consultar)){    
+                 
+                    if (strcmp(producto_Consultar.descripcion,nombre)==0){ 
+                    printf("Detalle Prodcuto\n%-11s\t%-6s\t%-8s\t%-6s\n",
+                    "Descripcion","Codigo","Cantidad","Precio");        
+                    printf("%-13s\t%-6s\t%-.2f\t%-.2f\n\n",
+                    producto_Consultar.descripcion,
+                    producto_Consultar.codigo,
+                    producto_Consultar.cantidad,
+                    producto_Consultar.precio);
           }
 
-          fscanf(Archivo_Consultar,"%13s%6s%f%f",producto_Consultar.descripcion,
-          producto_Consultar.codigo,
-          &producto_Consultar.cantidad,
-          &producto_Consultar.precio); 
+    fread(&producto_Consultar,sizeof(Producto),1,Archivo_Consultar);
+ 
     }
+
+
   }
-
-
-
+  fclose(Archivo_Consultar);
 }
 void Elimina_Prodcuto(){}
 
