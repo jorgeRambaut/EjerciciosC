@@ -29,7 +29,7 @@ if ((ptrArchivo_producto=fopen("Producto.txt","ab+"))== NULL){
           &producto_Nuevo.precio);
           fwrite(&producto_Nuevo,sizeof(Producto),1,ptrArchivo_producto) ;
           
-
+         printf("Producto Ingresado !!\n\n"); 
           }
             
 fclose(ptrArchivo_producto);
@@ -82,11 +82,16 @@ void Actualiza_Producto(){
                     producto_a_Actualizar.codigo,
                     producto_a_Actualizar.cantidad,
                     producto_a_Actualizar.precio);
-                }
+
+                       printf("Producto actualizado !!\n\n");
+
+                }               
 
           fread(&producto_a_Actualizar,sizeof(Producto),1,Archivo_Actualizar);
       
+          
           }
+          printf("prod no encontrado");
         }
 
   fclose(Archivo_Actualizar);
@@ -126,6 +131,7 @@ else
     fread(&producto_Consultar,sizeof(Producto),1,Archivo_Consultar);
  
     }
+              printf("prod no encontrado");
 
 
   }
@@ -171,12 +177,17 @@ void Elimina_Prodcuto(){
                     prod.codigo,
                     prod.cantidad,
                     prod.precio);
+
+                       printf("Producto Eliminado !!\n\n");
+
                 }
 
           fread(&prod,sizeof(Producto),1,Archivo_Eliminar);
-      
-          }
+          
+          }                  
+
         }
+          printf("prod no encontrado");
 
   fclose(Archivo_Eliminar);
 }
@@ -247,7 +258,7 @@ void  Ejecuta_opcion(const int opcion)
    case 1 :
    system("clear") ;
    Ingresa_Producto();
-   printf("Producto Ingresado !!\n\n");  
+    
    break;
 
    case 2 : 
@@ -258,7 +269,6 @@ void  Ejecuta_opcion(const int opcion)
    case 3 :
    system("clear") ;
    Elimina_Prodcuto();
-   printf("Opion 3\n");
    break;
 
    case 4 :
@@ -273,8 +283,6 @@ void  Ejecuta_opcion(const int opcion)
 
    case 6 :
    system("clear") ;
-   printf("Opcion salir\n");
-
    break;
 
    default :
